@@ -6,7 +6,7 @@ import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 const BottomNavigation = () => {
     const [selected, setSelected] = React.useState(1);
     return <>
-        <Box bg="white" safeAreaTop width="100%" alignSelf="center">
+        <Box bg="white" safeAreaTop={5} width="100%" alignSelf="center">
             <Center flex={1}></Center>
             <HStack bg="indigo.600" alignItems="center" safeAreaBottom shadow={6}>
                 <Pressable opacity={selected === 0 ? 1 : 0.5} py="3" flex={1} onPress={() => setSelected(0)}>

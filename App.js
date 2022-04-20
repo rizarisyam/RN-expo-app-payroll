@@ -2,27 +2,40 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, SafeAreaView, StatusBar } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'
-import { Avatar, Box, Divider, HStack, ScrollView, VStack, Heading, Text } from 'native-base'
+import { Avatar, Box, Divider, HStack, ScrollView, VStack, Heading, Text, Center } from 'native-base'
 import { FontAwesome5 } from '@expo/vector-icons'
 
 import BottomNavigation from './src/components/BottomNavigation';
+import SpinnerComponent from './src/components/Spinner';
+import Card from './src/components/Card';
 
 export default function App() {
   const [post, setPost] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [number] = useState(10000.900)
+
+  const currencyFormat = (number) => {
+    return 'Rp.' + number.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1, ')
+  }
 
   useEffect(() => {
     fetchPost()
   }, [])
 
   const fetchPost = async () => {
+    setLoading(true)
     try {
       const response = await fetch('https://jsonplaceholder.typicode.com/posts')
       const data = await response.json()
+      setLoading(false)
       setPost(data)
     } catch (error) {
       console.log(error)
     }
   }
+
+
+
   return (
     <>
       <SafeAreaView style={{ paddingTop: StatusBar.currentHeight }}>
@@ -36,29 +49,38 @@ export default function App() {
                   AJ
                 </Avatar>
                 <VStack justifyContent={'center'}>
-                  <Text>Riza Nurfat Risyam</Text>
-                  <Text>Full-Stack Developer</Text>
+                  <Text color={'white'} fontWeight={'bold'} fontSize={'sm'}>Riza Nurfat Risyam</Text>
+                  <Text color={'white'} fontSize={'xs'}>Full-Stack Developer</Text>
                 </VStack>
               </HStack>
               <HStack space={2} alignItems={'center'} color={'white'}>
                 <FontAwesome5 name="bell" size={24} color="white" />
-                <Text>5</Text>
+                <Text color={'white'} fontWeight={'bold'}>5</Text>
               </HStack>
             </HStack>
 
             <Box bgColor={'white'} rounded={'sm'} p={3} my={3}>
               <HStack justifyContent={'space-between'}>
-                <Text>Profil Perusahaan</Text>
-                <Text>TADS</Text>
+                <Text color={'gray.400'}>Profil Perusahaan</Text>
+                <Text fontWeight={'bold'}>TADS</Text>
               </HStack>
             </Box>
 
-            <Box bgColor={'white'} rounded={'sm'} p={3} my={3}>
-              <HStack justifyContent={'space-between'}>
-                <Text>Profil Perusahaan</Text>
-                <Text>TADS</Text>
-              </HStack>
-            </Box>
+            <HStack justifyContent={'space-between'} space={4}>
+              <Box flex={1} bgColor={'white'} rounded={'sm'} p={3} my={3} minH={20}>
+                <VStack justifyContent={'space-between'} mt={2}>
+                  <Text fontSize={'md'} fontWeight={'bold'} color={'#4684EB'}>{currencyFormat(number)}</Text>
+                  <Text color={'#4684EB'} fontSize={'xs'}>TADS</Text>
+                </VStack>
+              </Box>
+
+              <Box flex={1} bgColor={'white'} rounded={'sm'} p={3} my={3} minH={20}>
+                <VStack justifyContent={'space-between'}>
+                  <Text fontSize={'2xl'} color={'#4684EB'}>12 <Text fontSize={'sm'}>Tersisa</Text></Text>
+                  <Text color={'#4684EB'} ml={2}>Cuti</Text>
+                </VStack>
+              </Box>
+            </HStack>
           </LinearGradient>
 
         </Box>
@@ -66,21 +88,29 @@ export default function App() {
 
       <Box flex={1} px={4} mt={4}>
         <Heading color={'#4684EB'}>Pengumuman</Heading>
-        <ScrollView>
-          {post.map((value, idx) => (
-            <Box key={idx} my={2}>
-              <HStack justifyContent={'space-between'} my={2}>
-                <Text>{value.title.slice(0, 30)}</Text>
-                <Text fontSize={12} color={'gray.600'}>{new Date(Date.now()).toLocaleDateString()}</Text>
-              </HStack>
-              <Divider />
-            </Box>
-          ))}
-        </ScrollView>
+
+        {loading ? <SpinnerComponent /> : (
+          <ScrollView>
+            {post.map((value, idx) => (
+              <Box key={idx} my={2}>
+                <HStack justifyContent={'space-between'} my={2}>
+                  <Text>{value.title.slice(0, 30)}</Text>
+                  <Text fontSize={12} color={'gray.600'}>{new Date(Date.now()).toLocaleDateString()}</Text>
+                </HStack>
+                <Divider />
+              </Box>
+            ))}
+          </ScrollView>
+        )}
+
+
+
+
       </Box>
 
-
       <BottomNavigation />
+
+
     </>
 
   );
