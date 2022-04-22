@@ -9,6 +9,8 @@ const Tab = createMaterialBottomTabNavigator()
 import Home from './src/screens/Home'
 import AccountPage from './src/screens/Account'
 
+import AccountNavigator from './src/navigator/AccountNavigator'
+
 const Stack = createNativeStackNavigator()
 
 const App = () => {
@@ -16,7 +18,8 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen name='Home' component={Home} options={{ headerShown: false, contentStyle: { paddingTop: StatusBar.currentHeight } }} />
-        <Stack.Screen name='Account' component={AccountPage} />
+        {/* <Stack.Screen name='Account' component={AccountPage} /> */}
+        <Stack.Screen name='Account' options={{ headerShown: false }} component={AccountNavigator} />
       </Stack.Navigator>
     </NavigationContainer >
     // <NavigationContainer>
