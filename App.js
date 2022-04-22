@@ -10,6 +10,7 @@ import Home from './src/screens/Home'
 import AccountPage from './src/screens/Account'
 
 import AccountNavigator from './src/navigator/AccountNavigator'
+import EarningNavigator from './src/navigator/EarningNavigator'
 
 const Stack = createNativeStackNavigator()
 
@@ -20,6 +21,7 @@ const App = () => {
         <Stack.Screen name='Home' component={Home} options={{ headerShown: false, contentStyle: { paddingTop: StatusBar.currentHeight } }} />
         {/* <Stack.Screen name='Account' component={AccountPage} /> */}
         <Stack.Screen name='Account' options={{ headerShown: false }} component={AccountNavigator} />
+        <Stack.Screen name='Earning' options={{ headerShown: false }} component={EarningNavigator} />
       </Stack.Navigator>
     </NavigationContainer >
     // <NavigationContainer>

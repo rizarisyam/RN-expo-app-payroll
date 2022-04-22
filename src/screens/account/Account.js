@@ -5,11 +5,26 @@ import { SafeAreaView, StatusBar } from 'react-native'
 import { Box, Text, Avatar, HStack, VStack, Icon, Pressable } from 'native-base'
 import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesome5, MaterialIcons, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'
+import ModalLogout from './ModalLogout'
 
 const AccountPage = ({ navigation }) => {
 
     const goToPersonalPage = () => {
         navigation.navigate('PersonalData')
+    }
+
+    const goToAccountTaxesScreen = () => {
+        navigation.navigate('AccountTaxes')
+    }
+
+    const goToFileEmployeesScreen = () => {
+        navigation.navigate('FileEmployees')
+    }
+
+    const [showModal, setModalShow] = React.useState(false)
+
+    const onModalShowHandler = () => {
+        setModalShow((showModal) => !showModal)
     }
     return (
         <>
@@ -78,36 +93,44 @@ const AccountPage = ({ navigation }) => {
                     </Box>
 
                     <Box bg={'#E1F3F3'} p={3}>
-                        <HStack alignItems={'center'} space={4}>
-                            <Box bgColor={'#4684EB'} p={1} rounded={'md'} justifyContent={'center'} >
-                                <Icon size={'xl'} color={'white'} as={<FontAwesome5 name='money-check-alt' />} />
-                            </Box>
-                            {/* <MaterialCommunityIcons /> */}
-                            <Text color={'#4684EB'} fontSize={16} fontWeight={'semibold'}>Rekening & Pajak</Text>
-                        </HStack>
+                        <Pressable onPress={goToAccountTaxesScreen}>
+                            <HStack alignItems={'center'} space={4}>
+                                <Box bgColor={'#4684EB'} p={1} rounded={'md'} justifyContent={'center'} >
+                                    <Icon size={'xl'} color={'white'} as={<FontAwesome5 name='money-check-alt' />} />
+                                </Box>
+                                {/* <MaterialCommunityIcons /> */}
+                                <Text color={'#4684EB'} fontSize={16} fontWeight={'semibold'}>Rekening & Pajak</Text>
+                            </HStack>
+                        </Pressable>
                     </Box>
 
                     <Box bg={'#E1F3F3'} p={3}>
-                        <HStack alignItems={'center'} space={4}>
-                            <Box bgColor={'#4684EB'} p={1} rounded={'md'}>
-                                <Icon size={'xl'} color={'white'} as={<Ionicons name='checkbox-outline' />} />
-                            </Box>
-                            {/* <MaterialCommunityIcons /> */}
-                            <Text color={'#4684EB'} fontSize={16} fontWeight={'semibold'}>File Karyawan</Text>
-                        </HStack>
+                        <Pressable onPress={goToFileEmployeesScreen}>
+                            <HStack alignItems={'center'} space={4}>
+                                <Box bgColor={'#4684EB'} p={1} rounded={'md'}>
+                                    <Icon size={'xl'} color={'white'} as={<Ionicons name='checkbox-outline' />} />
+                                </Box>
+                                {/* <MaterialCommunityIcons /> */}
+                                <Text color={'#4684EB'} fontSize={16} fontWeight={'semibold'}>File Karyawan</Text>
+                            </HStack>
+                        </Pressable>
                     </Box>
 
                     <Box bg={'#E1F3F3'} p={3}>
-                        <HStack alignItems={'center'} space={4}>
-                            <Box bgColor={'#D83E3E'} p={1} rounded={'md'}>
-                                <Icon size={'xl'} color={'white'} as={<MaterialIcons name='logout' />} />
-                            </Box>
-                            {/* <MaterialCommunityIcons /> */}
-                            <Text color={'#D83E3E'} fontSize={16} fontWeight={'semibold'}>Logout</Text>
-                        </HStack>
+                        <Pressable onPress={onModalShowHandler}>
+                            <HStack alignItems={'center'} space={4}>
+                                <Box bgColor={'#D83E3E'} p={1} rounded={'md'}>
+                                    <Icon size={'xl'} color={'white'} as={<MaterialIcons name='logout' />} />
+                                </Box>
+                                {/* <MaterialCommunityIcons /> */}
+                                <Text color={'#D83E3E'} fontSize={16} fontWeight={'semibold'}>Logout</Text>
+                            </HStack>
+                        </Pressable>
                     </Box>
                 </VStack>
             </Box>
+
+            <ModalLogout showModal={showModal} onShowModal={onModalShowHandler} />
         </>
     )
 }

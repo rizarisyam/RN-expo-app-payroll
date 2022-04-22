@@ -7,6 +7,8 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesome5, MaterialIcons, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'
 
 const AccountPage = () => {
+
+
     return (
         <>
 
