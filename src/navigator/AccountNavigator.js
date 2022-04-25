@@ -10,7 +10,7 @@ import FileEmployees from '../screens/account/FileEmployees'
 
 export default AccountNavigator = () => {
     return (
-        <AccountStack.Navigator initialRouteName='AccountScreen'>
+        <AccountStack.Navigator initialRouteName='AccountScreen' screenOptions={{ headerShown: true }}>
             <AccountStack.Screen name='AccountScreen' options={{ title: 'test', headerShown: false }} component={AccountScreen} />
             <AccountStack.Screen name='PersonalData' options={{ headerShown: true, title: 'Data Pribadi' }} component={PersonalData} />
             <AccountStack.Screen name='AccountTaxes' options={{ headerShown: true, title: 'Rekening & Pajak' }} component={AccountTaxes} />

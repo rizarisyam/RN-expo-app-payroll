@@ -12,18 +12,23 @@ import AccountPage from './src/screens/Account'
 import AccountNavigator from './src/navigator/AccountNavigator'
 import EarningNavigator from './src/navigator/EarningNavigator'
 
+import BottomNavigation from './src/components/BottomNavigation'
+
 const Stack = createNativeStackNavigator()
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
-        <Stack.Screen name='Home' component={Home} options={{ headerShown: false, contentStyle: { paddingTop: StatusBar.currentHeight } }} />
-        {/* <Stack.Screen name='Account' component={AccountPage} /> */}
-        <Stack.Screen name='Account' options={{ headerShown: false }} component={AccountNavigator} />
-        <Stack.Screen name='Earning' options={{ headerShown: false }} component={EarningNavigator} />
-      </Stack.Navigator>
-    </NavigationContainer >
+
+    <BottomNavigation />
+
+    // <NavigationContainer>
+    //   <Stack.Navigator initialRouteName='Home'>
+    //     <Stack.Screen name='Home' component={Home} options={{ headerShown: false, contentStyle: { paddingTop: StatusBar.currentHeight } }} />
+    //     {/* <Stack.Screen name='Account' component={AccountPage} /> */}
+    //     <Stack.Screen name='Account' options={{ headerShown: false }} component={AccountNavigator} />
+    //     <Stack.Screen name='Earning' options={{ headerShown: false }} component={EarningNavigator} />
+    //   </Stack.Navigator>
+    // </NavigationContainer >
     // <NavigationContainer>
 
     //   <Tab.Navigator>
