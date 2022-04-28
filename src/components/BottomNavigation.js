@@ -11,15 +11,32 @@ const Tab = createBottomTabNavigator()
 import HomeScreen from '../screens/Home'
 import AccountNavigator from '../navigator/AccountNavigator'
 import EarningNavigator from '../navigator/EarningNavigator'
+import AdditionNavigator from '../navigator/AdditionNavigator'
+import AddButtonSheet from './AddBottomSheet'
 
 export const containerRef = createRef()
 
+const AddScreenComponent = () => null;
+
 const BottomNavigation = () => {
+
+    const tabBarOptions = {
+        tabStyle: {
+            justifyContent: 'center'
+        }
+    }
+
     return (
-        <NavigationContainer ref={containerRef}>
-
-
-            <Tab.Navigator screenOptions={{ headerShown: false }}>
+        <NavigationContainer>
+            <Tab.Navigator screenOptions={{
+                headerShown: false, tabBarShowLabel: false,
+                tabBarItemStyle: {
+                    // backgroundColor: 'red',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }
+            }
+            }>
                 <Tab.Screen name='Home' component={HomeScreen}
                     options={{
                         headerShown: false,
@@ -28,25 +45,34 @@ const BottomNavigation = () => {
                             <MaterialIcons name='home' color={color} size={26} />
                         )
                     }}
-                >
+                />
 
-                </Tab.Screen>
+
+
+                <Tab.Screen
+                    name='Addition'
+                    component={AdditionNavigator}
+                    options={{
+                        tabBarButton: (props) => <AddButtonSheet {...props} />
+                    }}
+                />
+
                 <Tab.Screen name='Account' component={AccountNavigator}
                     options={{
-                        tabBarLabel: 'Account',
                         tabBarIcon: ({ color }) => (
                             <MaterialCommunityIcons name='account' color={color} size={26} />
                         )
                     }}
-                ></Tab.Screen>
+                />
                 <Tab.Screen name='Earning' component={EarningNavigator} options={{
                     tabBarLabel: 'Earning',
                     tabBarIcon: ({ color }) => (
                         <Fontisto name='wallet' color={color} size={26} />
                     )
                 }} />
+
             </Tab.Navigator>
-        </NavigationContainer>
+        </NavigationContainer >
     )
 }
 

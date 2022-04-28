@@ -2,23 +2,30 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'
-import { Avatar, Icon, Box, Divider, HStack, ScrollView, View, VStack, Heading, Text, Center, Button, Pressable } from 'native-base'
+import { Avatar, Icon, useDisclose, Box, Divider, HStack, ScrollView, View, VStack, Heading, Text, Center, Button, Pressable } from 'native-base'
 import { FontAwesome5, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import SpinnerComponent from '../components/Spinner';
 
+import ActionSheet from '../components/ActionSheet';
 
-export default function Home() {
+
+export default function Home({ route }) {
     const [post, setPost] = useState([])
     const [loading, setLoading] = useState(false)
     const [number] = useState(10000.900)
+
+    const { params } = route
 
     const currencyFormat = (number) => {
         return 'Rp.' + number.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1, ')
     }
 
+
+
     useEffect(() => {
         fetchPost()
+
     }, [])
 
     const fetchPost = async () => {
@@ -33,9 +40,14 @@ export default function Home() {
         }
     }
 
+    const { isOpen, onOpen, onClose } = useDisclose()
+
 
     return (
         <>
+            {route.params?.key == 'actionSheet' && (
+                <ActionSheet isOpen={isOpen} onClose={onClose} />
+            )}
             <SafeAreaView style={{ paddingTop: StatusBar.currentHeight }}>
                 <Box>
                     <LinearGradient style={styles.container} colors={['#4684EB', '#00ABFE']}>

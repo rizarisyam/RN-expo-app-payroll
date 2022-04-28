@@ -14,12 +14,24 @@ import EarningNavigator from './src/navigator/EarningNavigator'
 
 import BottomNavigation from './src/components/BottomNavigation'
 
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { PortalProvider } from '@gorhom/portal'
+
+import BottomSheet from './src/components/AddBottomSheet'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+
 const Stack = createNativeStackNavigator()
 
 const App = () => {
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
 
-    <BottomNavigation />
+        <PortalProvider>
+          <BottomNavigation />
+        </PortalProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
 
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName='Home'>
