@@ -1,7 +1,7 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'
 import { View, Text, HStack, Box, VStack } from 'native-base'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation } from '@react-navigation/native'
@@ -14,6 +14,8 @@ const AddButtonSheet = (props) => {
     // ref
     const bottomSheetRef = useRef(null);
 
+    const [open, setOpen] = useState(false)
+
     // variables
     const snapPoints = useMemo(() => ['50%'], []);
 
@@ -23,8 +25,30 @@ const AddButtonSheet = (props) => {
     }, []);
 
     const onAddButtonPress = () => {
+
         bottomSheetRef?.current?.expand()
+
     }
+
+    const onBottomSheetClose = () => {
+        bottomSheetRef?.current.close()
+    }
+
+    const leaveScreen = () => {
+        navigation.navigate('Addition', {
+            screen: 'LeaveScreen'
+        });
+        onBottomSheetClose()
+    }
+
+    const permitScreen = () => {
+        navigation.navigate('Addition', {
+            screen: 'PermitScreen'
+        });
+        onBottomSheetClose()
+    }
+
+
 
 
     // renders
@@ -33,7 +57,7 @@ const AddButtonSheet = (props) => {
             <TouchableWithoutFeedback onPress={onAddButtonPress}>
                 <MaterialIcons name="library-books" size={26} color={'grey'} style={{ alignItems: 'center', justifyContent: 'center', paddingVertical: 10 }} />
             </TouchableWithoutFeedback>
-            <Portal>
+            <Portal hostName='BottomSheetPortaHost'>
 
                 <BottomSheet
                     ref={bottomSheetRef}
@@ -41,27 +65,41 @@ const AddButtonSheet = (props) => {
                     snapPoints={snapPoints}
                     onChange={handleSheetChanges}
                     enablePanDownToClose={true}
+                    onClose={onBottomSheetClose}
                 >
                     <LinearGradient colors={['#4684EB', '#00ABFE']} style={{ flex: 1, paddingHorizontal: 40, justifyContent: 'center' }}>
                         <VStack space={4}>
                             <HStack justifyContent={'space-between'} space={4}>
-                                <TouchableWithoutFeedback onPress={() => navigation.navigate('Addition', {
-                                    screen: 'LeaveScreen'
-                                })}>
-                                    <Box bgColor={'white'} padding={4} h={100} flex={1} rounded={'md'}>
+                                <TouchableWithoutFeedback onPress={leaveScreen}>
+                                    <Box bgColor={'white'} h={100} flex={1} rounded={'md'} justifyContent={'center'} alignItems={'center'}>
                                         <Text>Cuti</Text>
+                                        <Box rounded='3xl' bg={'#E1F3F3'} px={3} py={3} justifyContent={'center'} alignItems={'center'}>
+                                            <FontAwesome5 name="newspaper" size={20} color="#4684EB" />
+                                        </Box>
                                     </Box>
                                 </TouchableWithoutFeedback>
-                                <Box bgColor={'white'} padding={4} flex={1} rounded={'md'}>
-                                    <Text>Izin</Text>
-                                </Box>
+                                <TouchableWithoutFeedback onPress={permitScreen}>
+                                    <Box bgColor={'white'} flex={1} rounded={'md'} justifyContent={'center'} alignItems={'center'}>
+                                        <Text>Izin</Text>
+                                        <Box rounded='3xl' bg={'#E1F3F3'} px={3} py={3} justifyContent={'center'} alignItems={'center'}>
+                                            <FontAwesome5 name="unlock-alt" size={20} color="#4684EB" />
+                                        </Box>
+                                    </Box>
+                                </TouchableWithoutFeedback>
                             </HStack>
                             <HStack justifyContent={'space-between'} space={4}>
-                                <Box bgColor={'white'} padding={4} h={100} flex={1} rounded={'md'}>
+                                <Box bgColor={'white'} h={100} flex={1} rounded={'md'} justifyContent={'center'} alignItems={'center'}>
                                     <Text>Cuti</Text>
+                                    <Box rounded='3xl' bg={'#E1F3F3'} px={3} py={3} justifyContent={'center'} alignItems={'center'}>
+                                        <FontAwesome5 name="money-check-alt" size={20} color="#4684EB" />
+
+                                    </Box>
                                 </Box>
-                                <Box bgColor={'white'} padding={4} flex={1} rounded={'md'}>
+                                <Box bgColor={'white'} flex={1} rounded={'md'} justifyContent={'center'} alignItems={'center'}>
                                     <Text>Izin</Text>
+                                    <Box rounded='3xl' bg={'#E1F3F3'} px={3} py={3} justifyContent={'center'} alignItems={'center'}>
+                                        <FontAwesome5 name="user-check" size={20} color="#4684EB" />
+                                    </Box>
                                 </Box>
                             </HStack>
                         </VStack>

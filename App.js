@@ -15,7 +15,7 @@ import EarningNavigator from './src/navigator/EarningNavigator'
 import BottomNavigation from './src/components/BottomNavigation'
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { PortalProvider } from '@gorhom/portal'
+import { PortalProvider, PortalHost } from '@gorhom/portal'
 
 import BottomSheet from './src/components/AddBottomSheet'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -29,6 +29,7 @@ const App = () => {
 
         <PortalProvider>
           <BottomNavigation />
+          <PortalHost name='BottomSheetPortaHost' />
         </PortalProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>

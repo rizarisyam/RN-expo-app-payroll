@@ -3,10 +3,13 @@
 import * as React from 'react'
 import { Text, VStack, Select, Box, FormControl, CheckIcon, Center, TextArea, Button, View, Input, HStack } from 'native-base'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Platform } from 'react-native'
-import MyDatePicker from '../../components/MyDatePicker';
 
-const ApplyForLeave = () => {
+import { Platform, Image, TouchableOpacity } from 'react-native'
+import { launchImageLibrary } from 'react-native-image-picker'
+
+
+const AddPermit = () => {
+
     let [service, setService] = React.useState("");
     const [date, setDate] = React.useState(new Date())
     const [mode, setMode] = React.useState('date')
@@ -27,6 +30,19 @@ const ApplyForLeave = () => {
         showMode('date')
     }
 
+    const onChangeImageUpload = () => {
+        const options = {
+            storageOptions: {
+                skipBackup: true,
+                path: 'images'
+            }
+        }
+
+        launchImageLibrary(options, (response) => {
+            console.log(response)
+        })
+    }
+
 
 
     const transformDateFormat = () => {
@@ -41,7 +57,7 @@ const ApplyForLeave = () => {
                 <Box w={'100%'} paddingX={4} py={6}>
                     <FormControl isRequired>
                         <FormControl.Label>Jenis Cuti</FormControl.Label>
-                        <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" placeholderTextColor={'black'} placeholder="Choose Service" _selectedItem={{
+                        <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" placeholderTextColor={'black'} placeholder="Sakit" _selectedItem={{
                             bg: "teal.600",
                             endIcon: <CheckIcon size="5" />
                         }} mt={1} onValueChange={itemValue => setService(itemValue)}>
@@ -49,6 +65,13 @@ const ApplyForLeave = () => {
                             <Select.Item label="Cuti Melahirkan" value="web" />
                         </Select>
                     </FormControl>
+                    <FormControl isRequired>
+                        <FormControl.Label>Upload surat sakit</FormControl.Label>
+                        <TouchableOpacity onPress={onChangeImageUpload}>
+                            <Text>Pilih Image</Text>
+                        </TouchableOpacity>
+                    </FormControl>
+
                     <FormControl isRequired>
                         <FormControl.Label>Alasan Cuti</FormControl.Label>
                         <TextArea h={20} />
@@ -92,4 +115,4 @@ const ApplyForLeave = () => {
     )
 }
 
-export default ApplyForLeave;
+export default AddPermit;
